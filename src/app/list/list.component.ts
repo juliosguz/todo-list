@@ -7,6 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
+  todos = [
+    {
+      title: 'Mi primera tarea',
+      status: false
+    },
+    {
+      title: 'Mi segunda tarea',
+      status: false
+    },
+    {
+      title: 'Mi primera transmision',
+      status: true
+    }
+  ];
+
   constructor() { }
 
   ngOnInit() {
