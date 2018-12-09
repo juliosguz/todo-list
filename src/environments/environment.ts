@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyChYbdyEGbiNkGrXvDF9IVRHYi2faX5mwc',
+    authDomain: 'juliosguz-twitch.firebaseapp.com',
+    databaseURL: 'https://juliosguz-twitch.firebaseio.com',
+    projectId: 'juliosguz-twitch',
+    storageBucket: 'juliosguz-twitch.appspot.com',
+    messagingSenderId: '160233499812'
+  }
 };
 
 /*
