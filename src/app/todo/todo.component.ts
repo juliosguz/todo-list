@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-todo',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoComponent implements OnInit {
 
+  @Input() todo;
+
+  customTodo = true;
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.todo.title);
   }
 
+  onDelete() {
+    console.log('onDelete!!!', this.todo);
+  }
 }

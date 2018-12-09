@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import {
+  AngularFirestore,
+  AngularFirestoreCollection
+} from '@angular/fire/firestore';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -7,22 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  todos = [
-    {
-      title: 'Mi primera tarea',
-      status: false
-    },
-    {
-      title: 'Mi segunda tarea',
-      status: false
-    },
-    {
-      title: 'Mi primera transmision',
-      status: true
-    }
-  ];
+  todos;
 
-  constructor() { }
+  constructor(
+    private afs: AngularFirestore
+  ) {
+    this.todos = this.afs.collection('todos').valueChanges();
+    console.log(this.todos);
+  }
 
   ngOnInit() {
   }
