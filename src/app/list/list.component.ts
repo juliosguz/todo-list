@@ -6,6 +6,8 @@ import {
 } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -20,7 +22,20 @@ export class ListComponent implements OnInit {
     private afs: AngularFirestore
   ) {
     this.todosCollection = this.afs.collection('todos');
-    this.todos$ = this.todosCollection.valueChanges();
+    this.todos$ = this.todosCollection
+      .snapshotChanges()
+      .pipe(
+        map(todos => {
+          return todos.map(todo => {
+            const id = todo.payload.doc.id;
+            const data = todo.payload.doc.data();
+            return {
+              id,
+              ...data
+            };
+          });
+        })
+      );
   }
 
   ngOnInit() {
@@ -34,6 +49,17 @@ export class ListComponent implements OnInit {
       });
       formData.resetForm();
     }
+  }
+
+  onDelete(event) {
+    this.afs.doc(`todos/${event.id}`).delete();
+  }
+
+  onUpdate(event) {
+    const id = event.id;
+    const data = event;
+    delete data.id;
+    this.afs.doc(`todos/${id}`).update(data);
   }
 
 }

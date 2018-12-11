@@ -1,9 +1,11 @@
 <input
+  (change)="updateTodoStatus()"
   [(ngModel)]="todo.status"
   type="checkbox">
 <input
   class="input"
   type="text"
+  (keypress)="updateTodoTitle($event)"
   [(ngModel)]="todo.title"
   placeholder="Titulo de la tarea...">
 <button

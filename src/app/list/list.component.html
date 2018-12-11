@@ -19,6 +19,8 @@
     <li *ngFor="let todo of todos$ | async">
       <app-todo
         [todo]="todo"
+        (deleteTodo)="onDelete($event)"
+        (updateTodo)="onUpdate($event)"
         ></app-todo>
     </li>
   </ul>  
