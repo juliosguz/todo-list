@@ -1,11 +1,22 @@
 <section>
-  <h2>Agregar tarea</h2>
-  <input type="text" placeholder="Titulo de tarea?" >
+  <form
+    #todoForm="ngForm"
+    (ngSubmit)="save(todoForm)"
+    autocomplete="off" >
+    <h2>Agregar tarea</h2>
+    <input
+      name="newTodo"
+      ngModel
+      type="text"
+      required
+      placeholder="Titulo de tarea?" >
+    <button type="submit" [disabled]="!todoForm.valid" >Agregar</button>
+  </form>
 </section>
 <section class="todo-list">
   <h2>Lista de tareas</h2>
   <ul>
-    <li *ngFor="let todo of todos | async">
+    <li *ngFor="let todo of todos$ | async">
       <app-todo
         [todo]="todo"
         ></app-todo>

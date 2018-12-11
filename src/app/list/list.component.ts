@@ -4,6 +4,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from '@angular/fire/firestore';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -12,16 +13,27 @@ import {
 })
 export class ListComponent implements OnInit {
 
-  todos;
+  todosCollection: AngularFirestoreCollection;
+  todos$;
 
   constructor(
     private afs: AngularFirestore
   ) {
-    this.todos = this.afs.collection('todos').valueChanges();
-    console.log(this.todos);
+    this.todosCollection = this.afs.collection('todos');
+    this.todos$ = this.todosCollection.valueChanges();
   }
 
   ngOnInit() {
+  }
+
+  save(formData: NgForm) {
+    if (confirm('Estas seguro de agregarlo?')) {
+      this.todosCollection.add({
+        title: formData.value.newTodo,
+        status: false
+      });
+      formData.resetForm();
+    }
   }
 
 }
