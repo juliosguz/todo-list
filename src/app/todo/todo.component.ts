@@ -25,18 +25,23 @@ export class TodoComponent implements OnInit {
   }
 
   updateTodoStatus() {
-    this.updateTodo.emit({
-      id: this.todo.id,
+    this.updateTodoData({
       status: this.todo.status
     });
   }
 
   updateTodoTitle(event) {
     if (event.key === 'Enter') {
-      this.updateTodo.emit({
-        id: this.todo.id,
+      this.updateTodoData({
         title: this.todo.title
       });
     }
+  }
+
+  private updateTodoData(data) {
+    this.updateTodo.emit({
+      id: this.todo.id,
+      ...data
+    });
   }
 }
